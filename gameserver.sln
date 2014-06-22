@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gateway", "gateway\gateway.vcxproj", "{5CB19A1F-6F04-4292-871D-69F3A430E729}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "include", "include", "{37C03767-EFC1-4D6D-8B1A-F72C4B3FD145}"
+	ProjectSection(SolutionItems) = preProject
+		include\public.h = include\public.h
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "framwork", "framwork\framwork.vcxproj", "{9258EDE5-8179-4C7F-8CB9-5BFDF9D0066D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SocketTest", "SocketTest\SocketTest.vcxproj", "{AAAE267B-9C19-4E5E-8C5A-5C0FC373E932}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MySQLTest", "MySQLTest\MySQLTest.vcxproj", "{08723D53-CD46-44E2-90C0-78E002ABC46B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CleientTest", "CleientTest\CleientTest.vcxproj", "{792CAD7B-E010-4AB0-99A0-3054DE7CAB62}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerTest", "ServerTest\ServerTest.vcxproj", "{0E835D7F-83D6-405B-8829-998BED24F175}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CB19A1F-6F04-4292-871D-69F3A430E729}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5CB19A1F-6F04-4292-871D-69F3A430E729}.Debug|Win32.Build.0 = Debug|Win32
+		{5CB19A1F-6F04-4292-871D-69F3A430E729}.Release|Win32.ActiveCfg = Release|Win32
+		{5CB19A1F-6F04-4292-871D-69F3A430E729}.Release|Win32.Build.0 = Release|Win32
+		{9258EDE5-8179-4C7F-8CB9-5BFDF9D0066D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9258EDE5-8179-4C7F-8CB9-5BFDF9D0066D}.Debug|Win32.Build.0 = Debug|Win32
+		{9258EDE5-8179-4C7F-8CB9-5BFDF9D0066D}.Release|Win32.ActiveCfg = Release|Win32
+		{9258EDE5-8179-4C7F-8CB9-5BFDF9D0066D}.Release|Win32.Build.0 = Release|Win32
+		{AAAE267B-9C19-4E5E-8C5A-5C0FC373E932}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AAAE267B-9C19-4E5E-8C5A-5C0FC373E932}.Debug|Win32.Build.0 = Debug|Win32
+		{AAAE267B-9C19-4E5E-8C5A-5C0FC373E932}.Release|Win32.ActiveCfg = Release|Win32
+		{AAAE267B-9C19-4E5E-8C5A-5C0FC373E932}.Release|Win32.Build.0 = Release|Win32
+		{08723D53-CD46-44E2-90C0-78E002ABC46B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{08723D53-CD46-44E2-90C0-78E002ABC46B}.Debug|Win32.Build.0 = Debug|Win32
+		{08723D53-CD46-44E2-90C0-78E002ABC46B}.Release|Win32.ActiveCfg = Release|Win32
+		{08723D53-CD46-44E2-90C0-78E002ABC46B}.Release|Win32.Build.0 = Release|Win32
+		{792CAD7B-E010-4AB0-99A0-3054DE7CAB62}.Debug|Win32.ActiveCfg = Debug|Win32
+		{792CAD7B-E010-4AB0-99A0-3054DE7CAB62}.Debug|Win32.Build.0 = Debug|Win32
+		{792CAD7B-E010-4AB0-99A0-3054DE7CAB62}.Release|Win32.ActiveCfg = Release|Win32
+		{792CAD7B-E010-4AB0-99A0-3054DE7CAB62}.Release|Win32.Build.0 = Release|Win32
+		{0E835D7F-83D6-405B-8829-998BED24F175}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0E835D7F-83D6-405B-8829-998BED24F175}.Debug|Win32.Build.0 = Debug|Win32
+		{0E835D7F-83D6-405B-8829-998BED24F175}.Release|Win32.ActiveCfg = Release|Win32
+		{0E835D7F-83D6-405B-8829-998BED24F175}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gatewaymain">
+      <UniqueIdentifier>{a041d4a1-d7da-4d79-aa19-2609bd8b098d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="gatewaymain\gatewaymain.cpp">
+      <Filter>gatewaymain</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
