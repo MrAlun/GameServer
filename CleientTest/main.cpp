@@ -12,6 +12,9 @@ using namespace std;
 
 int main()
 {
+	u_short nPort = 0;
+	cin>>nPort;
+
 	WSADATA     wsaData;
 	SOCKET      sClient;
 	SOCKADDR_IN server;
@@ -28,14 +31,17 @@ int main()
 	memset(&server, 0, sizeof(SOCKADDR_IN));
 	server.sin_family = AF_INET;
 	server.sin_addr.S_un.S_addr = inet_addr(SERVER_ADDRESS);
-	server.sin_port = htons(5150);
+	server.sin_port = htons(nPort);
 
 	connect(sClient, (struct sockaddr *)&server, sizeof(SOCKADDR_IN));
 
+	int a = 1;
 	while (TRUE)
 	{
+		Sleep(3000);
 		printf("Send:");
-		cin>>szMessage;
+		_snprintf(szMessage, MSGSIZE - 1, "send id : [%d]", a);
+		a++;
 
 		// Send message
 		send(sClient, szMessage, strlen(szMessage), 0);

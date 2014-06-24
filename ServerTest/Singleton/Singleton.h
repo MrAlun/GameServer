@@ -8,11 +8,11 @@ template<typename T>
 class CSingleton
 {
 public:
-	static T*		Instance( void ) {return &m_pIntance;}
+	static T* Instance() {return &m_pIntance;}
 
 protected:
-	CSingleton( void ){}
-	~CSingleton( void ){}
+	CSingleton(){}
+	~CSingleton(){}
 	static T m_pIntance;
 };
 

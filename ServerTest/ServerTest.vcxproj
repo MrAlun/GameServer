@@ -41,6 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,17 +63,10 @@
   <ItemGroup>
     <ClCompile Include="Main\Main.cpp" />
     <ClCompile Include="Net\Connection.cpp" />
-    <ClCompile Include="Net\Server.cpp" />
-    <ClCompile Include="Thread\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Net\Connection.h" />
-    <ClInclude Include="Net\NetDefine.h" />
-    <ClInclude Include="Net\Server.h" />
-    <ClInclude Include="Platform\Platform.h" />
     <ClInclude Include="Singleton\Singleton.h" />
-    <ClInclude Include="Thread\Thread.h" />
-    <ClInclude Include="Thread\ThreadDefine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

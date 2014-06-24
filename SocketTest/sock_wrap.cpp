@@ -76,47 +76,48 @@ bool IsValidSocketHandle(HSocket handle)
 
 void SocketClose(HSocket &handle)
 {
-	 if(ISSOCKHANDLE(handle))
-		 {
+	if(ISSOCKHANDLE(handle))
+	{
 #if defined(_WIN32_PLATFROM_)
-			 closesocket(handle);
+		closesocket(handle);
 #endif
 
 #if defined(_LINUX_PLATFROM_)
-			 close(handle);
+		close(handle);
 #endif
-			 handle = INVALIDSOCKHANDLE;
-			 }
+		handle = INVALIDSOCKHANDLE;
+	}
 }
 
 HSocket SocketOpen(int tcpudp)
 {
-	 int protocol = 0;
-	 HSocket hs;
+	int protocol = 0;
+	HSocket hs;
 #if defined(_WIN32_PLATFROM_)
-	 if(tcpudp== SOCK_STREAM) protocol=IPPROTO_TCP;
-	 else if (tcpudp== SOCK_DGRAM) protocol = IPPROTO_UDP;
+	if(tcpudp == SOCK_STREAM) protocol=IPPROTO_TCP;
+	else if (tcpudp== SOCK_DGRAM) protocol = IPPROTO_UDP;
 #endif
-	 hs = socket(AF_INET, tcpudp, protocol);
-	 return hs;
+	hs = socket(AF_INET, tcpudp, protocol);
+	return hs;
 }
 int SocketBind(HSocket hs, sockaddr_in *paddr)
 {
-	 return bind(hs, (struct sockaddr *)paddr, sizeof(sockaddr_in));
+	return bind(hs, (struct sockaddr *)paddr, sizeof(sockaddr_in));
 }
 int SocketListen(HSocket hs, int maxconn)
 {
-	 return listen(hs,maxconn);
+	return listen(hs,maxconn);
 }
 HSocket SocketAccept(HSocket hs, sockaddr_in *paddr)
 {
 #if defined(_WIN32_PLATFROM_)
-	 int cliaddr_len = sizeof(sockaddr_in);
+	int cliaddr_len = sizeof(sockaddr_in);
 #endif
+
 #if defined(_LINUX_PLATFROM_)
-	 socklen_t cliaddr_len = sizeof(sockaddr_in);
+	socklen_t cliaddr_len = sizeof(sockaddr_in);
 #endif
-	 return accept(hs, (struct sockaddr *)paddr, &cliaddr_len);
+	return accept(hs, (struct sockaddr *)paddr, &cliaddr_len);
 }
 //
 // if timeout occurs, nbytes=-1, nresult=1
@@ -125,25 +126,25 @@ HSocket SocketAccept(HSocket hs, sockaddr_in *paddr)
 // otherwise nbytes= the count of bytes sent , nresult=0
 void SocketSend(HSocket hs, const char *ptr, int nbytes, transresult_t &rt)
 {
-	 rt.nbytes = 0;
-	 rt.nresult = 0;
-	 if(!ptr|| nbytes<1) return;
+	rt.nbytes = 0;
+	rt.nresult = 0;
+	if(!ptr || nbytes<1) return;
 
 	 //Linux: flag can be MSG_DONTWAIT, MSG_WAITALL, 使用MSG_WAITALL的时候, socket 必须是处于阻塞模式下，否则WAITALL不能起作用
-	 rt.nbytes = send(hs, ptr, nbytes, BLOCKREADWRITE|SENDNOSIGNAL);
-	 if(rt.nbytes>0)
-		 {
-			 rt.nresult = (rt.nbytes == nbytes)?0:1;
-			 }
-	 else if(rt.nbytes==0)
-		 {
-			 rt.nresult=-1;
-			 }
-	 else
-		 {
-			 rt.nresult = GetLastSocketError();
-			 rt.nresult = ETRYAGAIN(rt.nresult)? 1:-1;
-			 }
+	rt.nbytes = send(hs, ptr, nbytes, BLOCKREADWRITE|SENDNOSIGNAL);
+	if(rt.nbytes > 0)
+	{
+		rt.nresult = (rt.nbytes == nbytes)? 0 : 1;
+	}
+	else if(rt.nbytes == 0)
+	{
+		rt.nresult=-1;
+	}
+	else
+	{
+		rt.nresult = GetLastSocketError();
+		rt.nresult = ETRYAGAIN(rt.nresult)? 1 : -1;
+	}
 }
 
 
@@ -153,25 +154,24 @@ void SocketSend(HSocket hs, const char *ptr, int nbytes, transresult_t &rt)
 // if the other side has disconnected in either block mode or nonblock mode, nbytes=0, nresult=-1
 void SocketRecv(HSocket hs, char *ptr, int nbytes, transresult_t &rt)
 {
-	 rt.nbytes = 0;
-	 rt.nresult = 0;
-	 if(!ptr|| nbytes<1) return;
+	rt.nbytes = 0;
+	rt.nresult = 0;
+	if(!ptr|| nbytes<1) return;
 
-	 rt.nbytes = recv(hs, ptr, nbytes, BLOCKREADWRITE);
-	 if(rt.nbytes>0)
-		 {
-			 return;
-			 }
-	 else if(rt.nbytes==0)
-		 {
-			 rt.nresult=-1;
-			 }
-	 else
-		 {
-			 rt.nresult = GetLastSocketError();
-			 rt.nresult = ETRYAGAIN(rt.nresult)? 1:-1;
-			 }
-
+	rt.nbytes = recv(hs, ptr, nbytes, BLOCKREADWRITE);
+	if(rt.nbytes > 0)
+	{
+		return;
+	}
+	else if(rt.nbytes==0)
+	{
+		rt.nresult=-1;
+	}
+	else
+	{
+		rt.nresult = GetLastSocketError();
+		rt.nresult = ETRYAGAIN(rt.nresult)? 1:-1;
+	}
 }
 // nbytes= the count of bytes sent
 // if timeout occurs, nresult=1
@@ -179,135 +179,137 @@ void SocketRecv(HSocket hs, char *ptr, int nbytes, transresult_t &rt)
 // if the other side has disconnected in either block mode or nonblock mode, nresult=-2
 void SocketTrySend(HSocket hs, const char *ptr, int nbytes, int milliseconds, transresult_t &rt)
 {
-	 rt.nbytes = 0;
-	 rt.nresult = 0;
-	 if(!ptr|| nbytes<1) return;
+	rt.nbytes = 0;
+	rt.nresult = 0;
+	if(!ptr|| nbytes<1) return;
 
-
-	 int n;
-	 CMyTimeSpan start;
-	 while(1)
-		 {
-			 n = send(hs, ptr+rt.nbytes, nbytes, NONBLOCKREADWRITE|SENDNOSIGNAL);
-			 if(n>0)
-				 {
-					 rt.nbytes += n;
-					 nbytes -= n;
-					 if(rt.nbytes >= nbytes) { rt.nresult = 0; break; }
-					 }
-			 else if( n==0)
-				 {
-					 rt.nresult= -2;
-					 break;
-					 }
-			 else
-				 {
-					 n = GetLastSocketError();
-					 if(ETRYAGAIN(n))
-						 {
-							 CLightThread::DiscardTimeSlice();
-							 }
-					 else
-						 {
-							 rt.nresult = -1;
-							 break;
-							 }
-					 }
-			 if(start.GetSpaninMilliseconds()> milliseconds) { rt.nresult= 1; break;}
-			 }
+	int n;
+	CMyTimeSpan start;
+	while(1)
+	{
+		n = send(hs, ptr+rt.nbytes, nbytes, NONBLOCKREADWRITE|SENDNOSIGNAL);
+		if (n > 0)
+		{
+			rt.nbytes += n;
+			nbytes -= n;
+			if(rt.nbytes >= nbytes) { rt.nresult = 0; break; }
+		}
+		else if(n == 0)
+		{
+			rt.nresult= -2;
+			break;
+		}
+		else
+		{
+			n = GetLastSocketError();
+			if(ETRYAGAIN(n))
+			{
+				CLightThread::DiscardTimeSlice();
+			}
+			else
+			{
+				rt.nresult = -1;
+				break;
+			}
+		}
+		if(start.GetSpaninMilliseconds() > milliseconds) 
+		{ 
+			rt.nresult= 1; 
+			break;
+		}
+	}
 }
 // if timeout occurs, nbytes=-1, nresult=1
 // if socket error, nbyte=-1, nresult=-1
 // if the other side has disconnected in either block mode or nonblock mode, nbytes=0, nresult=-1
 void SocketTryRecv(HSocket hs, char *ptr, int nbytes, int milliseconds, transresult_t &rt)
 {
-	 rt.nbytes = 0;
-	 rt.nresult = 0;
-	 if(!ptr|| nbytes<1) return;
+	rt.nbytes = 0;
+	rt.nresult = 0;
+	if (!ptr || nbytes < 1) return;
 
-	 if(milliseconds>2)
-		 {
-			 CMyTimeSpan start;
-			 while(1)
-				 {
-					 rt.nbytes = recv(hs, ptr, nbytes, NONBLOCKREADWRITE);
-					 if(rt.nbytes>0)
-						 {
-							 break;
-							 }
-					 else if(rt.nbytes==0)
-						 {
-							 rt.nresult = -1;
-							 break;
-							 }
-					 else
-						 {
-							 rt.nresult = GetLastSocketError();
-							 if( ETRYAGAIN(rt.nresult))
-								 {
-									 if(start.GetSpaninMilliseconds()>milliseconds) { rt.nresult= 1; break;}
-									 CLightThread::DiscardTimeSlice();
-									 }
-							 else
-								 {
-									 rt.nresult = -1;
-									 break;
-									 }
-							 }
-
-					 }
-			 }
-	 else
-		 {
-			 SocketRecv(hs, ptr, nbytes, rt);
-			 }
+	if (milliseconds > 2)
+	{
+		CMyTimeSpan start;
+		while(1)
+		{
+			rt.nbytes = recv(hs, ptr, nbytes, NONBLOCKREADWRITE);
+			if(rt.nbytes>0)
+			{
+				break;
+			}
+			else if(rt.nbytes==0)
+			{
+				rt.nresult = -1;
+				break;
+			}
+			else
+			{
+				rt.nresult = GetLastSocketError();
+				if( ETRYAGAIN(rt.nresult))
+				{
+					if(start.GetSpaninMilliseconds()>milliseconds) { rt.nresult= 1; break;}
+					CLightThread::DiscardTimeSlice();
+				}
+				else
+				{
+					rt.nresult = -1;
+					break;
+				}
+			}
+		}
+	}
+	else
+	{
+		SocketRecv(hs, ptr, nbytes, rt);
+	}
 }
 
 void SocketClearRecvBuffer(HSocket hs)
 {
 #if defined(_WIN32_PLATFROM_)
-	 struct timeval tmOut;
-	 tmOut.tv_sec = 0;
-	 tmOut.tv_usec = 0;
-	 fd_set fds;
-	 FD_ZERO(&fds);
-	 FD_SET(hs, &fds);
-	 int nRet = 1;
-	 char tmp[100];
-	 int rt;
-	 while(nRet>0)
-		 {
-			 nRet= select(FD_SETSIZE, &fds, NULL, NULL, &tmOut);
-			 if(nRet>0)
-				 {
-					 nRet = recv(hs, tmp, 100,0);
-					 }
-			 }
+	struct timeval tmOut;
+	tmOut.tv_sec = 0;
+	tmOut.tv_usec = 0;
+	fd_set fds;
+	FD_ZERO(&fds);
+	FD_SET(hs, &fds);
+	int nRet = 1;
+	char tmp[100];
+	int rt;
+	while (nRet > 0)
+	{
+		nRet= select(FD_SETSIZE, &fds, NULL, NULL, &tmOut);
+		if (nRet > 0)
+		{
+			nRet = recv(hs, tmp, 100,0);
+		}
+	}
 #endif
 
 #if defined(_LINUX_PLATFROM_)
-	 char tmp[100];
-	 while(recv(hs, tmp, 100, NONBLOCKREADWRITE)> 0);
+	char tmp[100];
+	while(recv(hs, tmp, 100, NONBLOCKREADWRITE)> 0);
 #endif
 }
 
 int SocketBlock(HSocket hs, bool bblock)
 {
-	 unsigned long mode;
-	 if( ISSOCKHANDLE(hs))
-		 {
+	unsigned long mode;
+	if( ISSOCKHANDLE(hs))
+	{
 #if defined(_WIN32_PLATFROM_)
-			 mode = bblock?0:1;
-			 return ioctlsocket(hs,FIONBIO,&mode);
+		mode = bblock?0:1;
+		return ioctlsocket(hs, FIONBIO, &mode);
 #endif
 
 #if defined(_LINUX_PLATFROM_)
-			 mode = fcntl(hs, F_GETFL, 0); //获取文件的flags值。
-			 //设置成阻塞模式 非阻塞模式
-			 return bblock?fcntl(hs,F_SETFL, mode&~O_NONBLOCK): fcntl(hs, F_SETFL, mode | O_NONBLOCK);
+		mode = fcntl(hs, F_GETFL, 0); //获取文件的flags值。
+		//设置成阻塞模式 非阻塞模式
+		return bblock? fcntl(hs,F_SETFL, mode&~O_NONBLOCK) : fcntl(hs, F_SETFL, mode | O_NONBLOCK);
 #endif
-			 }
-	 return -1;
+	}
+	return -1;
 }
 
 int SocketTimeOut(HSocket hs, int recvtimeout, int sendtimeout, int lingertimeout) //in milliseconds

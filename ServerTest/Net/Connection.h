@@ -1,34 +1,50 @@
 #ifndef _CONNECTION_H_
 #define _CONNECTION_H_
 
-#include <winsock.h>
 #include <map>
 #include <string>
-
+#include <Platform.h>
 using namespace std;
+
+#if defined(_WIN32_PLATFROM_)
+#include <winsock.h>
+
+typedef SOCKET HSocket;
+
+#pragma comment(lib, "ws2_32.lib")
+#endif
+
+#if defined(_LINUX_PLATFROM_)
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+
+typedef int HSocket;
+
+#define SOCKET_ERROR (-1)
+#define INVALID_SOCKET 0
+#endif
+
 
 class Connection
 {
-protected:
-	Connection(){}
 public:
+	Connection(){}
 	~Connection(){}
 
-	static Connection& Instance()
-	{
-		static Connection gs_Connection;
-		return gs_Connection;
-	}
+	bool Init(u_short nPort);
+
+	int Run();
 
 	void ProcessConnection();
 
-	void ProcessMsg();
+	void ProcessReceiveMsg();
 
-	SOCKET& GetServerSocket();
+	HSocket& GetServerSocket();
 
 private:
-	SOCKET m_ServerSocket;
-	map<SOCKET, string> m_mapClientSocket;
+	HSocket m_ServerSocket;
+	std::map<HSocket, string> m_mapClientSocket;
 };
 
 #endif//_CONNECTION_H_
