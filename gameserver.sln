@@ -19,6 +19,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CleientTest", "CleientTest\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerTest", "ServerTest\ServerTest.vcxproj", "{0E835D7F-83D6-405B-8829-998BED24F175}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liblua", "liblua\liblua.vcxproj", "{133D4959-C47E-4941-AAE2-4AAE094E7A39}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testlua", "testlua\testlua.vcxproj", "{43B53312-ACC8-43CA-BE12-F8E53A3DD696}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AOI", "AOI\AOI.vcxproj", "{4421C107-D341-4D5F-A840-0CA2BF8BE2A8}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -53,6 +59,18 @@ Global
 		{0E835D7F-83D6-405B-8829-998BED24F175}.Debug|Win32.Build.0 = Debug|Win32
 		{0E835D7F-83D6-405B-8829-998BED24F175}.Release|Win32.ActiveCfg = Release|Win32
 		{0E835D7F-83D6-405B-8829-998BED24F175}.Release|Win32.Build.0 = Release|Win32
+		{133D4959-C47E-4941-AAE2-4AAE094E7A39}.Debug|Win32.ActiveCfg = Debug|Win32
+		{133D4959-C47E-4941-AAE2-4AAE094E7A39}.Debug|Win32.Build.0 = Debug|Win32
+		{133D4959-C47E-4941-AAE2-4AAE094E7A39}.Release|Win32.ActiveCfg = Release|Win32
+		{133D4959-C47E-4941-AAE2-4AAE094E7A39}.Release|Win32.Build.0 = Release|Win32
+		{43B53312-ACC8-43CA-BE12-F8E53A3DD696}.Debug|Win32.ActiveCfg = Debug|Win32
+		{43B53312-ACC8-43CA-BE12-F8E53A3DD696}.Debug|Win32.Build.0 = Debug|Win32
+		{43B53312-ACC8-43CA-BE12-F8E53A3DD696}.Release|Win32.ActiveCfg = Release|Win32
+		{43B53312-ACC8-43CA-BE12-F8E53A3DD696}.Release|Win32.Build.0 = Release|Win32
+		{4421C107-D341-4D5F-A840-0CA2BF8BE2A8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4421C107-D341-4D5F-A840-0CA2BF8BE2A8}.Debug|Win32.Build.0 = Debug|Win32
+		{4421C107-D341-4D5F-A840-0CA2BF8BE2A8}.Release|Win32.ActiveCfg = Release|Win32
+		{4421C107-D341-4D5F-A840-0CA2BF8BE2A8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

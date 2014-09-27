@@ -1,19 +1,41 @@
-#include "sock_wrap.h"
-#include "lightthread.h"
+// #include <stdio.h>
+// 
+// int main(void)
+// {
+// 	int a = 3;
+// 
+// 	int *one_ptr = &a; //相当于int *one_ptr；one_ptr = &a;
+// 
+// 	int **two_ptr = &one_ptr; //相当于int **two_ptr; two_ptr = &one_ptr;
+// 
+// 	printf("&a = %p, one_ptr = %p, *two_ptr = %p\n", &a, one_ptr, *two_ptr);
+// 	printf("&one_ptr = %p, *two_ptr = %p\n", &one_ptr, two_ptr);
+// 	printf("a = %d, *one_ptr = %d, **two_ptr = %d\n", a, *one_ptr, **two_ptr);
+// 
+// 	while (true)
+// 	{
+// 
+// 	}
+// 
+// 	return 0;
+// }
 
-void proc(void* param)
-{
-	while (true)
-	{
-
-	}
-}
-
-int main(void)
-{
-	CLightThread::CreateThread(proc, NULL);
-	return 0;
-}
+// #include "sock_wrap.h"
+// #include "lightthread.h"
+// 
+// void proc(void* param)
+// {
+// 	while (true)
+// 	{
+// 
+// 	}
+// }
+// 
+// int main(void)
+// {
+// 	CLightThread::CreateThread(proc, NULL);
+// 	return 0;
+// }
 
 // #include <windows.h>
 // #include <stdio.h>
@@ -125,3 +147,41 @@ int main(void)
 // 	}
 // 	return TRUE;
 // }
+
+#include <stdio.h>
+
+typedef struct
+{
+	int i;
+	int num;
+	int state;
+} task;
+
+int cb(task *t)
+{
+	switch (t->state) {
+	case 0:
+		for (;;) {
+			t->num = 1;
+			for (t->i = 0; t->i < 20; t->i++) {
+				t->state = __LINE__ + 2;
+				return t->num;
+	case __LINE__:
+		t->num += 1;
+			}
+		}
+	}
+}
+
+int main()
+{
+	task t;
+	int i;
+
+	t.state = 0;
+
+	for (i = 0; i < 100; i++) {
+		printf("%d ", cb(&t));
+	}
+	return 0;
+}
