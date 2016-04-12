@@ -6,7 +6,12 @@
 
 static int func( lua_State* L )
 {
-	printf( "call func" );
+	printf( "call  func" );
+	printf( "call  func" );
+	printf( "call  func" );
+	printf( "call  func" );
+	printf( "call  func" );
+	printf( "call  func" );
 	return 0;
 }
 
