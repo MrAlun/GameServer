@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include <lua.h>
-#include <lualib.h>
-#include <luaxlib.h>
+#include <lua/lua.h>
+#include <lua/lualib.h>
+#include <lua/luaxlib.h>
 
 static int func( lua_State* L )
 {
